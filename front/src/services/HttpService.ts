@@ -5,7 +5,19 @@ export default class HttpService {
 
   constructor() {
     this.axios = axios.create({
-      baseURL: 'http://localhost:3333/',
+      baseURL: "http://localhost:3333/",
+    });
+
+    this.axios.interceptors.request.use((config) => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        config.headers = {
+          Authorization: `Bearer ${token}`,
+        };
+      }
+
+      return config;
     });
   }
 
