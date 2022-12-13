@@ -18,7 +18,7 @@ export class UsersService {
   async create(newUser: UserEntity) {
     newUser.password = md5(newUser.password);
     const sameUsers = await this.findOneByUsername(newUser.username);
-    console.log(newUser);
+    // console.log(newUser);
 
     // so podem se cadastrar usuarios novos
     if (sameUsers === null) return this.usersRepository.save(newUser);

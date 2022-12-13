@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserService from "../../services/UserService";
 import { CadastroReq } from "../../types/CadastroReq.type";
 import InputPublico from "../shared/inputPublico";
@@ -9,6 +9,7 @@ type Props = {};
 const userService = new UserService();
 
 const userCadastro: CadastroReq = {
+  username: "",
   email: "",
   password: "",
 };
@@ -17,6 +18,7 @@ const Cadastro = (props: Props) => {
   const [user, setUser] = useState(userCadastro);
   const [confirmarsenha, setConfirmarsenha] = useState("");
   const [estaSubmetendo, setEstaSubmetendo] = useState(false);
+  const navigate = useNavigate();
 
   const inputTextHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     // console.log(e.currentTarget.value)
@@ -27,14 +29,15 @@ const Cadastro = (props: Props) => {
   };
 
   const aoSubmeter = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (estaSubmetendo) return;
 
-    await userService.cadastro(user);
-    e.preventDefault();
     if (user.password === confirmarsenha) {
-      //console.log(user)
+      await userService.cadastro(user);
       setEstaSubmetendo(true);
-      alert("Usuário criado! Faça login");
+      alert("Usuário criado!");
+
+      navigate("/");
     } else alert("As senhas não são iguais");
     setEstaSubmetendo(false);
   };
@@ -46,6 +49,12 @@ const Cadastro = (props: Props) => {
       </div>
       <div className="containerInput">
         <form onSubmit={aoSubmeter}>
+          <InputPublico
+            user={user}
+            nome={"username"}
+            placeholder={"Username"}
+            setUser={setUser}
+          />
           <InputPublico
             user={user}
             nome={"email"}
@@ -69,7 +78,7 @@ const Cadastro = (props: Props) => {
         </form>
       </div>
       <div className="containerRodape">
-        <Link to="/login">
+        <Link to="/">
           Já tem uma conta?
           <br />
           <span className="cadastro">Entre agora!</span>

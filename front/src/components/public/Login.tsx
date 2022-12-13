@@ -4,7 +4,9 @@ import UserService from "../../services/UserService";
 import { LoginReq } from "../../types/LoginReq.type";
 import InputPublico from "../shared/inputPublico";
 
-type Props = {};
+type Props = {
+  afterAutentication: any;
+};
 
 const userGenerico: LoginReq = {
   username: "",
@@ -25,6 +27,10 @@ const Login = (props: Props) => {
       setEstaSubmetendo(true);
       try {
         await userService.login(user);
+
+        if (props.afterAutentication) {
+          props.afterAutentication();
+        }
       } catch (error) {
         alert(error);
       }
