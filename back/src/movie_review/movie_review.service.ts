@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MovieReview } from './entities/movie_review.entity';
+import { MovieReviewEntity } from './entities/movie_review.entity';
 import { MovieReviewRepository } from './movie_review.repository';
 
 @Injectable()
 export class MovieReviewService {
   constructor(
-    @InjectRepository(MovieReview)
+    @InjectRepository(MovieReviewEntity)
     private movieReviewRepository: MovieReviewRepository,
   ) {}
 
-  create(newMovieReview: MovieReview) {
+  create(newMovieReview: MovieReviewEntity) {
     return this.movieReviewRepository.save(newMovieReview);
   }
 
-  findAll(): Promise<MovieReview[]> {
+  findAll(): Promise<MovieReviewEntity[]> {
     return this.movieReviewRepository.find();
   }
 }

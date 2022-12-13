@@ -1,8 +1,8 @@
-import { MovieReview } from 'src/movie_review/entities/movie_review.entity';
+import { MovieReviewEntity } from 'src/movie_review/entities/movie_review.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity({ name: 'users' })
-export class User {
+export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -18,6 +18,6 @@ export class User {
   @Column({ default: false })
   superuser: boolean;
 
-  @OneToMany(() => MovieReview, (movieReview) => movieReview.user)
-  movieReviews: MovieReview[];
+  @OneToMany(() => MovieReviewEntity, (movieReview) => movieReview.user)
+  movieReviews: MovieReviewEntity[];
 }

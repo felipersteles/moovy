@@ -1,8 +1,8 @@
-/* eslint-disable prettier/prettier */
-import { Movie } from 'src/movies/entities/movie.entity';
+
+import { ShowMovieDto } from 'src/movies/dto/show-movie.dto';
 
 export class MovieReviewDto {
-  movie: Movie; // mudar para movie-dto
+  movie: ShowMovieDto;
   rating: number;
-  audio_review: string;
+  audioReview: string;
 }

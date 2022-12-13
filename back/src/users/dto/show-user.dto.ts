@@ -1,9 +1,7 @@
-/* eslint-disable prettier/prettier */
-
 import { MovieReviewDto } from "src/movie_review/dto/movie_review.dto";
 
-export class UserShowDto {
+export class ShowUserDto {
     id: string;
     username: string;
-    movieReviews: MovieReviewDto;
+    movieReviews: MovieReviewDto[];
 }

@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 
-import { Movie } from 'src/movies/entities/movie.entity';
-import { User } from 'src/users/entities/user.entity';
+import { MovieEntity } from 'src/movies/entities/movie.entity';
+import { UserEntity } from 'src/users/entities/user.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 
 @Entity({ name: 'movie_review' })
-export class MovieReview {
+export class MovieReviewEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -21,11 +21,11 @@ export class MovieReview {
   @Column({ name: 'audio_review', nullable: true })
   audio: string;
 
-  @ManyToOne(() => User)
-  @JoinColumn([{name: 'userId', referencedColumnName: 'id'}])
-  user: User;
+  @ManyToOne(() => UserEntity)
+  @JoinColumn([{name: 'user_id', referencedColumnName: 'id'}])
+  user: UserEntity;
 
-  @ManyToOne(() => Movie)
-  @JoinColumn([{name: 'movieId', referencedColumnName: 'id'}])
-  movie: Movie;
+  @ManyToOne(() => MovieEntity)
+  @JoinColumn([{name: 'movie_id', referencedColumnName: 'id'}])
+  movie: MovieEntity;
 }

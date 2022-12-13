@@ -1,18 +1,16 @@
-/* eslint-disable prettier/prettier */
-
-
 import { BadRequestException } from '@nestjs/common';
+import { MovieReviewMapper } from 'src/movie_review/movie-review.mapper';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserShowDto } from './dto/user-show.dto';
-import { User } from './entities/user.entity';
+import { ShowUserDto } from './dto/show-user.dto';
+import { UserEntity } from './entities/user.entity';
 
 export class UserMapper {
-  static fromDTOtoEntity(entityDTO: CreateUserDto): User {
+  static fromDTOtoEntity(entityDTO: CreateUserDto): UserEntity {
     if (!entityDTO) {
       throw new BadRequestException('Invalid input DTO');
     }
 
-    const entity = new User();
+    const entity = new UserEntity();
 
     const fields = Object.getOwnPropertyNames(entityDTO);
 
@@ -23,23 +21,24 @@ export class UserMapper {
     return entity;
   }
 
-  static fromEntityToDTO(entity: User): UserShowDto {
+  static fromEntityToShowDTO(entity: UserEntity): ShowUserDto {
     if (!entity) {
       throw new BadRequestException('Invalid input entity');
     }
 
-    const entityDTO = new UserShowDto();
+    const entityDTO = new ShowUserDto();
 
-      entityDTO.id = entity.id;
-      entityDTO.username = entity.username
+    entityDTO.id = entity.id;
+    entityDTO.username = entity.username;
     //   entityDTO.movieReviews = entity.movieReviews
 
     // criar mapper movie review e examinar(basear-se) codigo de baixo
-      
-    // entity.personProfile &&
-    //   (entityDTO.personProfile = PersonProfileMapper.fromEntityToShortDTO(
-    //     entity.personProfile,
-    //   ));
+    // console.log(entity.movieReviews)
+    
+    entityDTO.movieReviews = []
+    entity.movieReviews.forEach((movieRevier) => {
+      entityDTO.movieReviews.push(MovieReviewMapper.fromEntityToDTO(movieRevier))
+    })
 
     return entityDTO;
   }
