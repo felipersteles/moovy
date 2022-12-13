@@ -14,7 +14,7 @@ export default class UserService extends HttpService {
     return this.post("users/cadastro", dados);
   }
 
-  isAutenticate() {
+  isAuthenticated() {
     return localStorage.getItem('token') !== null;
   }
 }

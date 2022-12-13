@@ -4,10 +4,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-import { MovieReviewModule } from './movie_review/movie_review.module';
+import { MovieReviewModule } from './movie-review/movie-review.module';
 import { UserEntity } from './users/entities/user.entity';
 import { MovieEntity } from './movies/entities/movie.entity';
-import { MovieReviewEntity } from './movie_review/entities/movie_review.entity';
+import { MovieReviewEntity } from './movie-review/entities/movie-review.entity';
 
 @Module({
   imports: [

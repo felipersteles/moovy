@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { MovieReviewEntity } from './entities/movie_review.entity';
-import { MovieReviewService } from './movie_review.service';
+import { MovieReviewEntity } from './entities/movie-review.entity';
+import { MovieReviewService } from './movie-review.service';
 
 @Controller('moviereview')
 export class MovieReviewsController {

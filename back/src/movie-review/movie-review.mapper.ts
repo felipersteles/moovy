@@ -1,7 +1,7 @@
 import { BadRequestException } from "@nestjs/common";
 import { MovieMapper } from "src/movies/movies.mapper";
-import { MovieReviewDto } from "./dto/movie_review.dto";
-import { MovieReviewEntity } from "./entities/movie_review.entity";
+import { MovieReviewDto } from "./dto/movie-review.dto";
+import { MovieReviewEntity } from "./entities/movie-review.entity";
 
 export class MovieReviewMapper { 
     static fromDTOtoEntity(entityDTO: MovieReviewDto): MovieReviewEntity { 

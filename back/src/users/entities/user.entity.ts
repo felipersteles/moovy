@@ -1,4 +1,4 @@
-import { MovieReviewEntity } from 'src/movie_review/entities/movie_review.entity';
+import { MovieReviewEntity } from 'src/movie-review/entities/movie-review.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity({ name: 'users' })

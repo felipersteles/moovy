@@ -1,5 +1,5 @@
 import { BadRequestException } from '@nestjs/common';
-import { MovieReviewMapper } from 'src/movie_review/movie-review.mapper';
+import { MovieReviewMapper } from 'src/movie-review/movie-review.mapper';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ShowUserDto } from './dto/show-user.dto';
 import { UserEntity } from './entities/user.entity';

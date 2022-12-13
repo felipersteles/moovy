@@ -1,4 +1,4 @@
-import { MovieReviewDto } from "src/movie_review/dto/movie_review.dto";
+import { MovieReviewDto } from "src/movie-review/dto/movie-review.dto";
 
 export class ShowUserDto {
     id: string;

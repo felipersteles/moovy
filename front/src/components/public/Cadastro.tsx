@@ -34,6 +34,10 @@ const Cadastro = (props: Props) => {
 
     if (user.password === confirmarsenha) {
       await userService.cadastro(user);
+      await userService.login({
+        username: user.username,
+        password: user.password,
+      });
       setEstaSubmetendo(true);
       alert("Usuário criado!");
 

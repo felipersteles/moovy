@@ -11,7 +11,7 @@ function App() {
   const [isAutenticated, setIsAutenticated] = useState(false);
 
   useEffect(() => {
-    setIsAutenticated(userService.isAutenticate());
+    setIsAutenticated(userService.isAuthenticated());
   }, []);
 
   if (isAutenticated) return <Home />;

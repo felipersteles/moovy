@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MovieReviewEntity } from './entities/movie_review.entity';
-import { MovieReviewRepository } from './movie_review.repository';
+import { MovieReviewEntity } from './entities/movie-review.entity';
+import { MovieReviewRepository } from './movie-review.repository';
 
 @Injectable()
 export class MovieReviewService {

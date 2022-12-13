@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { DataSource, EntityRepository, Repository } from 'typeorm';
-import { MovieReviewEntity } from './entities/movie_review.entity';
+import { MovieReviewEntity } from './entities/movie-review.entity';
 
 @EntityRepository(MovieReviewEntity)
 export class MovieReviewRepository extends Repository<MovieReviewEntity> {
