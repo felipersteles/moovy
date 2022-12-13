@@ -15,7 +15,7 @@ export class UsersService {
 
   async create(newUser: User) {
     newUser.password = md5(newUser.password);
-    const sameUsers = await this.findOneByEmail(newUser.email);
+    const sameUsers = await this.findOneByUsername(newUser.username);
     console.log(newUser);
 
     // so podem se cadastrar usuarios novos
@@ -27,12 +27,21 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  findOne(id: string): Promise<User> {
-    return this.usersRepository.findOneBy({ id });
+  findOneWithRelation(id: string): Promise<User> {
+    return this.usersRepository.findOne({
+      where: {
+        id,
+      },
+      relations: ['movieReviews', 'movieReviews.movie'],
+    });
   }
 
   findOneByEmail(email: string): Promise<User> {
     return this.usersRepository.findOneBy({ email });
+  }
+
+  findOneByUsername(username: string): Promise<User> {
+    return this.usersRepository.findOneBy({ username });
   }
 
   async remove(id: string): Promise<void> {

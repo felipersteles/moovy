@@ -44,12 +44,13 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
-    return req.user;
+    const user = req.user;
+    return this.usersService.findOneWithRelation(user.id);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
+  findOneWithRelation(@Param('id') id: string) {
+    return this.usersService.findOneWithRelation(id);
   }
 
   @Delete(':id')

@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { MoviesModule } from './movies/movies.module';
 import { AuthModule } from './auth/auth.module';
-import { UserMovieModule } from './user_movie/user_movie.module';
+import { MovieReviewModule } from './movie_review/movie_review.module';
 
 @Module({
   imports: [
@@ -23,7 +23,7 @@ import { UserMovieModule } from './user_movie/user_movie.module';
       migrationsTableName: 'migration_table',
     }),
     AuthModule,
-    UserMovieModule,
+    MovieReviewModule,
   ],
   controllers: [AppController],
   providers: [AppService],

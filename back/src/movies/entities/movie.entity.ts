@@ -1,4 +1,4 @@
-import { UserMovie } from 'src/user_movie/entities/user_movie.entity';
+import { MovieReview } from 'src/movie_review/entities/movie_review.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'movies' })
@@ -12,10 +12,6 @@ export class Movie {
   @Column({ name: 'img', nullable: false })
   img: string;
 
-  @Column({ name: 'hate', nullable: false, type: 'numeric' })
-  hate: number;
-
-  // corrigir para many to many
-  @OneToMany(() => UserMovie, (user_movie) => user_movie.movie)
-  movie_user: UserMovie[];
+  @OneToMany(() => MovieReview, (movieReview) => movieReview.movie)
+  movieReviews: MovieReview[];
 }
