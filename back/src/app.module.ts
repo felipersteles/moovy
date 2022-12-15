@@ -11,9 +11,7 @@ import { MovieReviewEntity } from './movie-review/entities/movie-review.entity';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      envFilePath: '../.env',
-    }),
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,

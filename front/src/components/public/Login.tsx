@@ -28,6 +28,7 @@ const Login = (props: Props) => {
       try {
         await userService.login(user);
 
+
         if (props.afterAutentication) {
           props.afterAutentication();
         }

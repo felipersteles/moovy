@@ -12,13 +12,15 @@ import { UsersService } from './users.service';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { UserEntity } from './entities/user.entity';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UserMapper } from './user.mapper';
 
 @Controller('users')
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
     private authService: AuthService,
+    private userMapper = UserMapper
   ) {}
 
   // metodo de cadastro é um post
@@ -26,7 +28,8 @@ export class UsersController {
   // isto é, que ainda não possuem username
   // cadastrado no banco de dados
   @Post('cadastro')
-  cadastro(@Body() newUser: UserEntity) {
+  cadastro(@Body() createUserDto: CreateUserDto) {
+    const newUser = this.userMapper.fromDTOtoEntity(createUserDto)
     return this.usersService.create(newUser);
   }
 
