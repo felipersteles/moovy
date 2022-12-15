@@ -16,8 +16,10 @@
     "@types/react-dom": "^18.0.9",
     "axios": "^1.2.1",
     "dotenv": "^16.0.3",
+    "modal": "^1.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.4.5",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.4",
@@ -46,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-modal": "^3.13.1"
   }
 }
