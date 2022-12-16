@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SearchMovieService from "../../services/SearchMovieService";
-import InputPublico from "../shared/inputPublico";
+import MovieCard from "../movie/MovieCard";
 
 type Props = {
   closeModal: any;
@@ -20,15 +20,19 @@ const Modal = (props: Props) => {
 
   const handleClick = async () => {
     const res = await serachMovieService.get(movieName);
-    setMovies(res.data.Search)
-    console.log(movies);
+    setMovies(res.data.Search);
+    // console.log(movies);
   };
-
+  
   return (
     <div className="modalContainer">
       <input onChange={inputTextHandler} placeholder="No country for old man" />
 
       <button onClick={handleClick}>Buscar filme</button>
+      {movies &&
+        movies.map((movie: any) => (
+          <MovieCard img={movie.Poster} title={movie.Title} />
+        ))}
       <button onClick={props.closeModal}>X</button>
     </div>
   );

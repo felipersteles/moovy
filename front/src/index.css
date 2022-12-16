@@ -76,6 +76,19 @@ span.cadastro{
     padding: 5vh 10vw;
 }
 
+.movieCardContainer{
+    display: flex;
+    padding: 8px 15px;
+    align-items: center;
+}
+.movieCardContainer img{
+    max-width: 25vw;
+    border-radius: 5%;
+}
+.movieCardContainer h3{
+    margin-left: 15px;
+}
+
 @media only screen and (min-width: 600px)  {
 
 }

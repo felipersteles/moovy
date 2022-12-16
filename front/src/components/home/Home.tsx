@@ -14,13 +14,13 @@ const Home = (props: Props) => {
 
   // open modal
   const openModal = () => {
-    console.log("abrir o modal");
+    // console.log("abrir o modal");
     setIsOpen(true);
   };
 
   // close modal
   const closeModal = () => {
-    console.log("fechar o modal");
+    // console.log("fechar o modal");
     setIsOpen(false);
   };
 
@@ -33,13 +33,15 @@ const Home = (props: Props) => {
         </Link>
       </header>
 
-      <div className="noMovies">
-        <SearchIcon sx={{ fontSize: 150 }} />
-        <p>
-          It looks like there are no movies in your library! Go to you web
-          application and add some!
-        </p>
-      </div>
+      {!isOpen && (
+        <div className="noMovies">
+          <SearchIcon sx={{ fontSize: 150 }} />
+          <p>
+            It looks like there are no movies in your library! Go to you web
+            application and add some!
+          </p>
+        </div>
+      )}
 
       <Modal
         isOpen={isOpen}
@@ -48,9 +50,8 @@ const Home = (props: Props) => {
         overlayClassName="modal-overlay"
         className="modalNewMovie"
         ariaHideApp={false}
-
       >
-        <ModalComponent closeModal={closeModal}/>
+        <ModalComponent closeModal={closeModal} />
       </Modal>
     </div>
   );
