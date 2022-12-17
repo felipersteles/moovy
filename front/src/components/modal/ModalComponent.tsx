@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import SearchMovieService from "../../services/SearchMovieService";
-import MovieCard from "../movie/MovieCard";
+import MovieList from "../movie/MovieList";
+import NewMovie from "./NewMovie";
 
 type Props = {
   closeModal: any;
+};
+
+type Movie = {
+  img: string;
+  title: string;
+  imdbID: string;
 };
 
 const serachMovieService = new SearchMovieService();
@@ -11,6 +18,8 @@ const serachMovieService = new SearchMovieService();
 const Modal = (props: Props) => {
   const [movieName, setMovieName] = useState("");
   const [movies, setMovies] = useState([]);
+  const [movie, setMovie] = useState({} as Movie);
+  const [isAddingMovie, setIsAddingMovie] = useState(false);
 
   const inputTextHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
@@ -18,21 +27,33 @@ const Modal = (props: Props) => {
     setMovieName(value);
   };
 
-  const handleClick = async () => {
+  const addToBackend = (movie: any) => {
+    setMovie({
+      img: movie.Poster,
+      title: movie.Title,
+      imdbID: movie.imdbID,
+    } as Movie);
+    setIsAddingMovie(true);
+  };
+
+  const searchMovie = async () => {
     const res = await serachMovieService.get(movieName);
     setMovies(res.data.Search);
-    // console.log(movies);
   };
-  
+
   return (
     <div className="modalContainer">
-      <input onChange={inputTextHandler} placeholder="No country for old man" />
+      {isAddingMovie ? (
+        <NewMovie img={movie.img} title={movie.title} />
+      ) : (
+        <MovieList
+          handleClick={searchMovie}
+          inputTextHandler={inputTextHandler}
+          movies={movies}
+          addToBackend={addToBackend}
+        />
+      )}
 
-      <button onClick={handleClick}>Buscar filme</button>
-      {movies &&
-        movies.map((movie: any) => (
-          <MovieCard img={movie.Poster} title={movie.Title} />
-        ))}
       <button onClick={props.closeModal}>X</button>
     </div>
   );

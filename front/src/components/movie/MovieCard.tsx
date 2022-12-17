@@ -9,9 +9,7 @@ const MovieCard = (props: Props) => {
   return (
     <div className="movieCardContainer">
       <img src={props.img} alt="Poster" />
-      <a>
-        <h3>{props.title}</h3>
-      </a>
+      <h3>{props.title}</h3>
     </div>
   );
 };

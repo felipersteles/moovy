@@ -12,6 +12,9 @@ export class MovieEntity {
   @Column({ name: 'img', nullable: false })
   img: string;
 
+  @Column({ name: 'idmb_id', nullable: false })
+  idmbID: string;
+
   @OneToMany(() => MovieReviewEntity, (movieReview) => movieReview.movie)
   movieReviews: MovieReviewEntity[];
 }

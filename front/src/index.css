@@ -88,6 +88,24 @@ span.cadastro{
 .movieCardContainer h3{
     margin-left: 15px;
 }
+.searchMovieContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: gray;
+    border-radius: 5px;
+    margin: 5px;
+
+    padding: 0 15px;
+}
+.searchMovieContainer button{
+    border: none;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+
+    padding: 10px;
+}
 
 @media only screen and (min-width: 600px)  {
 

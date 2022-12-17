@@ -19,9 +19,9 @@ export class MoviesService {
     return this.movieRepository.find();
   }
 
-  findOne(id: string): Promise<MovieEntity> {
-    return this.movieRepository.findOneBy({ id });
-  }
+  // findOne(id: string): Promise<MovieEntity> {
+  //   return this.movieRepository.findOneBy({ id });
+  // }
 
   async remove(id: string): Promise<void> {
     await this.movieRepository.delete(id);

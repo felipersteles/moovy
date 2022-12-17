@@ -20,7 +20,7 @@ export class UsersController {
   constructor(
     private readonly usersService: UsersService,
     private authService: AuthService,
-    private userMapper = UserMapper
+    private userMapper = UserMapper,
   ) {}
 
   // metodo de cadastro é um post
@@ -29,7 +29,7 @@ export class UsersController {
   // cadastrado no banco de dados
   @Post('cadastro')
   cadastro(@Body() createUserDto: CreateUserDto) {
-    const newUser = this.userMapper.fromDTOtoEntity(createUserDto)
+    const newUser = this.userMapper.fromDTOtoEntity(createUserDto);
     return this.usersService.create(newUser);
   }
 
@@ -49,15 +49,5 @@ export class UsersController {
   getProfile(@Request() req) {
     const user = req.user;
     return this.usersService.findOneWithRelation(user.id);
-  }
-
-  @Get(':id')
-  findOneWithRelation(@Param('id') id: string) {
-    return this.usersService.findOneWithRelation(id);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
   }
 }

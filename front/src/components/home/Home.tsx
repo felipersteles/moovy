@@ -3,7 +3,6 @@ import Auth from "../hoc/Auth";
 
 import SearchIcon from "@mui/icons-material/Search";
 import LibraryAddSharpIcon from "@mui/icons-material/LibraryAddSharp";
-import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import ModalComponent from "../modal/ModalComponent";
 
@@ -28,9 +27,7 @@ const Home = (props: Props) => {
     <div className="containerHome">
       <header>
         <h1>My Library</h1>
-        <Link to={"/"} onClick={openModal}>
-          <LibraryAddSharpIcon fontSize="large" />
-        </Link>
+        <LibraryAddSharpIcon onClick={openModal} fontSize="large" />
       </header>
 
       {!isOpen && (
