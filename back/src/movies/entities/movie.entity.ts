@@ -6,14 +6,14 @@ export class MovieEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'titulo', nullable: false })
-  titulo: string;
+  @Column({ name: 'title', nullable: false })
+  title: string;
 
   @Column({ name: 'img', nullable: false })
   img: string;
 
-  @Column({ name: 'idmb_id', nullable: false })
-  idmbID: string;
+  @Column({ name: 'idmb_id', nullable: true })
+  imdbID: string;
 
   @OneToMany(() => MovieReviewEntity, (movieReview) => movieReview.movie)
   movieReviews: MovieReviewEntity[];

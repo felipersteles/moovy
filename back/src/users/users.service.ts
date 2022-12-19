@@ -4,7 +4,11 @@ import { Repository } from 'typeorm/repository/Repository';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserEntity } from './entities/user.entity';
 import * as md5 from 'md5';
-import { ForbiddenException } from '@nestjs/common/exceptions';
+import {
+  BadRequestException,
+  ForbiddenException,
+  NotFoundException,
+} from '@nestjs/common/exceptions';
 import { UserMapper } from './user.mapper';
 import { ShowUserDto } from './dto/show-user.dto';
 
@@ -17,19 +21,21 @@ export class UsersService {
 
   async create(newUser: UserEntity) {
     newUser.password = md5(newUser.password);
-    const sameUsers = await this.findOneByUsername(newUser.username);
-    // console.log(newUser);
-
+    try {
+      await this.findOneByUsername(newUser.username);
+    } catch (error) {
+      if(error.status === 404) return this.usersRepository.save(newUser);
+    }
+    
     // so podem se cadastrar usuarios novos
-    if (sameUsers === null) return this.usersRepository.save(newUser);
-    else throw new ForbiddenException();
+    throw new ForbiddenException();
   }
 
   findAll(): Promise<UserEntity[]> {
     return this.usersRepository.find();
   }
 
-  async findOneWithRelation(id: string): Promise<ShowUserDto> {
+  async findOneWithRelation(id: string): Promise<UserEntity> {
     const user = await this.usersRepository.findOne({
       where: {
         id,
@@ -37,15 +43,22 @@ export class UsersService {
       relations: ['movieReviews', 'movieReviews.movie'],
     });
 
-    return UserMapper.fromEntityToShowDTO(user);
+    if (user) return user;
+    else throw new BadRequestException();
   }
 
-  findOneByEmail(email: string): Promise<UserEntity> {
-    return this.usersRepository.findOneBy({ email });
+  async findOneByEmail(email: string): Promise<UserEntity> {
+    const user = await this.usersRepository.findOneBy({ email });
+
+    if (user) return user;
+    else throw new NotFoundException();
   }
 
-  findOneByUsername(username: string): Promise<UserEntity> {
-    return this.usersRepository.findOneBy({ username });
+  async findOneByUsername(username: string): Promise<UserEntity> {
+    const user = await this.usersRepository.findOneBy({ username });
+
+    if (user) return user;
+    else throw new NotFoundException();
   }
 
   async remove(id: string): Promise<void> {

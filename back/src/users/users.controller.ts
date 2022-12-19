@@ -8,8 +8,10 @@ import {
   UseGuards,
   Request,
 } from '@nestjs/common';
+
 import { UsersService } from './users.service';
 import { AuthGuard } from '@nestjs/passport';
+
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -19,8 +21,7 @@ import { UserMapper } from './user.mapper';
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
-    private authService: AuthService,
-    private userMapper = UserMapper,
+    private authService: AuthService
   ) {}
 
   // metodo de cadastro é um post
@@ -29,7 +30,7 @@ export class UsersController {
   // cadastrado no banco de dados
   @Post('cadastro')
   cadastro(@Body() createUserDto: CreateUserDto) {
-    const newUser = this.userMapper.fromDTOtoEntity(createUserDto);
+    const newUser = UserMapper.fromDTOtoEntity(createUserDto);
     return this.usersService.create(newUser);
   }
 
@@ -46,8 +47,8 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
-    const user = req.user;
-    return this.usersService.findOneWithRelation(user.id);
+  async getProfile(@Request() req) {
+    const user = await this.usersService.findOneWithRelation(req.user.id);
+    return UserMapper.fromEntityToShowDTO(user);
   }
 }

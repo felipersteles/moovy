@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import MovieService from "../../services/MovieService";
 import SearchMovieService from "../../services/SearchMovieService";
+import { MovieType } from "../../types/MovieType";
 import MovieList from "../movie/MovieList";
 import NewMovie from "./NewMovie";
 
@@ -7,18 +9,14 @@ type Props = {
   closeModal: any;
 };
 
-type Movie = {
-  img: string;
-  title: string;
-  imdbID: string;
-};
+const movieService = new MovieService()
 
 const serachMovieService = new SearchMovieService();
 
 const Modal = (props: Props) => {
   const [movieName, setMovieName] = useState("");
   const [movies, setMovies] = useState([]);
-  const [movie, setMovie] = useState({} as Movie);
+  const [movie, setMovie] = useState({} as MovieType);
   const [isAddingMovie, setIsAddingMovie] = useState(false);
 
   const inputTextHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,12 +25,21 @@ const Modal = (props: Props) => {
     setMovieName(value);
   };
 
-  const addToBackend = (movie: any) => {
-    setMovie({
-      img: movie.Poster,
-      title: movie.Title,
-      imdbID: movie.imdbID,
-    } as Movie);
+  const addToBackend = async (movieSelected: any) => {
+    const newMovie = {
+      img: movieSelected.Poster,
+      title: movieSelected.Title,
+      imdbID: movieSelected.imdbID,
+    } as MovieType
+
+    setMovie(newMovie);
+
+    try {
+      movieService.create(newMovie)
+    } catch (error) {
+      console.log(error)
+    }
+    
     setIsAddingMovie(true);
   };
 

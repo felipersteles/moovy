@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateMovieDto } from './dto/create-movie.dto';
@@ -11,17 +15,25 @@ export class MoviesService {
     private movieRepository: Repository<MovieEntity>,
   ) {}
 
-  create(createMovieDto: CreateMovieDto) {
-    return this.movieRepository.save(createMovieDto);
+  async create(newMovie: MovieEntity) {
+    try {
+      await this.findOne(newMovie.imdbID);
+    } catch (error) {
+      if (error.status === 404) return this.movieRepository.save(newMovie);
+      else throw new BadRequestException();
+    }
   }
 
   findAll(): Promise<MovieEntity[]> {
     return this.movieRepository.find();
   }
 
-  // findOne(id: string): Promise<MovieEntity> {
-  //   return this.movieRepository.findOneBy({ id });
-  // }
+  async findOne(imdbID: string): Promise<MovieEntity> {
+    const movie = await this.movieRepository.findOneBy({ imdbID });
+
+    if (movie) return movie;
+    else throw new NotFoundException();
+  }
 
   async remove(id: string): Promise<void> {
     await this.movieRepository.delete(id);

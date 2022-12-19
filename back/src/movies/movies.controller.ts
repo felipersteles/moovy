@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
+import { MovieMapper } from './movies.mapper';
 
 // APENAS PARA ROTEAMENTO
 // LÓGICA DENTRO DO SERVICE
@@ -19,7 +20,9 @@ export class MoviesController {
 
   @Post()
   async create(@Body() createMovieDto: CreateMovieDto) {
-    return this.moviesService.create(createMovieDto);
+    const newMovie = MovieMapper.fromDTOtoEntity(createMovieDto)
+    
+    return this.moviesService.create(newMovie);
   }
 
   @Get()

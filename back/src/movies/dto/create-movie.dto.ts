@@ -1,5 +1,5 @@
 export class CreateMovieDto {
-  titulo: string;
+  title: string;
   img: string;
   imdbID: string;
 }

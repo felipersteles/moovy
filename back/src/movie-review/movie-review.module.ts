@@ -11,5 +11,6 @@ import { MovieReviewService } from './movie-review.service';
   ],
   controllers: [MovieReviewsController],
   providers: [MovieReviewService],
+  exports: [MovieReviewService]
 })
 export class MovieReviewModule {}
