@@ -21,8 +21,6 @@ import { MovieReviewEntity } from './movie-review/entities/movie-review.entity';
       password: process.env.DB_PASSWORD,
       synchronize: true, // não recomendado em ambientes de produção
       entities: [UserEntity, MovieEntity, MovieReviewEntity],
-      migrations: [`${__dirname}/**/migrations/*.{ts,js}`],
-      migrationsTableName: 'migration_table',
       autoLoadEntities: true,
     }),
     AuthModule,

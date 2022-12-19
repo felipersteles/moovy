@@ -11,6 +11,7 @@ export class MovieReviewService {
   ) {}
 
   create(newMovieReview: MovieReviewEntity) {
+    console.log(newMovieReview);
     return this.movieReviewRepository.save(newMovieReview);
   }
 

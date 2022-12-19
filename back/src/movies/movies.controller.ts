@@ -30,9 +30,9 @@ export class MoviesController {
     return this.moviesService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.moviesService.findOne(id);
+  @Get(':imdbID')
+  findOne(@Param('imdbID') imdbID: string) {
+    return this.moviesService.findOne(imdbID);
   }
 
   @Delete(':id')

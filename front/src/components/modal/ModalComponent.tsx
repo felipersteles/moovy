@@ -51,7 +51,7 @@ const Modal = (props: Props) => {
   return (
     <div className="modalContainer">
       {isAddingMovie ? (
-        <NewMovie img={movie.img} title={movie.title} />
+        <NewMovie movie={movie} closeModal={props.closeModal} />
       ) : (
         <MovieList
           handleClick={searchMovie}

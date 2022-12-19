@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 type Props = {
-  user: any;
-  setUser: any;
+  user?: any;
+  setUser?: any;
+  rate?: number;
+  setRate?: any;
   nome: string;
   placeholder: string;
 };
@@ -14,7 +16,9 @@ export default function inputPublico(props: Props) {
   const inputTextHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
 
-    props.setUser({ ...props.user, [name]: value });
+    if (props.user) props.setUser({ ...props.user, [name]: value });
+    
+    if(name === 'rating') props.setRate(value)
   };
 
   // eslint-disable-next-line react-hooks/rules-of-hooks

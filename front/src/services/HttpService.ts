@@ -28,4 +28,13 @@ export default class HttpService {
   get(url: string) {
     return this.axios.get(url);
   }
+
+  postForm(url: string, data: any) {
+    return this.axios({
+      method: "post",
+      url: url,
+      data: data,
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+  }
 }

@@ -1,10 +1,11 @@
 import { BadRequestException } from "@nestjs/common";
 import { MovieMapper } from "src/movies/movies.mapper";
+import { CreateMovieReviewDto } from "./dto/create-movie-review.dto";
 import { MovieReviewDto } from "./dto/movie-review.dto";
 import { MovieReviewEntity } from "./entities/movie-review.entity";
 
 export class MovieReviewMapper { 
-    static fromDTOtoEntity(entityDTO: MovieReviewDto): MovieReviewEntity { 
+    static fromDTOtoEntity(entityDTO: CreateMovieReviewDto): MovieReviewEntity { 
         if (!entityDTO) {
             throw new BadRequestException('Invalid input DTO');
           }

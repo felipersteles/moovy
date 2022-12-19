@@ -16,6 +16,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserMapper } from './user.mapper';
+import { ShortUserDto } from './dto/short-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -43,6 +44,12 @@ export class UsersController {
   @Get()
   findAll() {
     return this.usersService.findAll();
+  }
+
+  @Get(':username')
+  async findOne(@Param('username') username: string): Promise<ShortUserDto> {
+    const user = await this.usersService.findOneByUsername(username)
+    return UserMapper.fromEntityToShortDTO(user);
   }
 
   @UseGuards(JwtAuthGuard)
