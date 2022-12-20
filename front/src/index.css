@@ -3,6 +3,11 @@ body, html{
     height: 100%;
 }
 
+#root{
+    height: 100%;
+}
+
+
 .containerLogin{
     height: 100%;
     display: flex;
@@ -105,6 +110,27 @@ span.cadastro{
     color: white;
 
     padding: 10px;
+}
+
+.movieReviewsContainer{
+    height: 80%;
+}
+.movieReviewCard{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.movieReviewCard .movieCardContainer{
+    flex-direction: column;
+    height: 100%;
+}
+.movieReviewCard .movieCardContainer img{
+    max-width: 100%;
+}
+.movieReviewCard .movieCardContainer h3{
+    margin-left: 0;
 }
 
 @media only screen and (min-width: 600px)  {

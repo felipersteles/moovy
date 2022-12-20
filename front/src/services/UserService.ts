@@ -10,8 +10,12 @@ export default class UserService extends HttpService {
     localStorage.setItem('token', data.access_token);
   }
 
-  async cadastro(dados: CadastroReq) {
+  cadastro(dados: CadastroReq) {
     return this.post("users/cadastro", dados);
+  }
+
+  getProfile() {
+    return this.get("users/profile")
   }
 
   isAuthenticated() {

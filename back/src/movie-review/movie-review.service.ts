@@ -11,7 +11,7 @@ export class MovieReviewService {
   ) {}
 
   create(newMovieReview: MovieReviewEntity) {
-    console.log(newMovieReview);
+    // fazer o audio como caminho para o banco de dados
     return this.movieReviewRepository.save(newMovieReview);
   }
 

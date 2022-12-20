@@ -2,8 +2,8 @@ import React from "react";
 import MovieCard from "./MovieCard";
 
 type Props = {
-  inputTextHandler: any;
-  handleClick: any;
+  inputTextHandler?: any;
+  handleClick?: any;
   movies: any;
   setIsAddingMovie?: any;
   addToBackend?: any

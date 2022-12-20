@@ -44,21 +44,18 @@ export class UsersService {
     });
 
     if (user) return user;
-    else throw new BadRequestException();
   }
 
   async findOneByEmail(email: string): Promise<UserEntity> {
     const user = await this.usersRepository.findOneBy({ email });
 
     if (user) return user;
-    else throw new NotFoundException();
   }
 
   async findOneByUsername(username: string): Promise<UserEntity> {
     const user = await this.usersRepository.findOneBy({ username });
 
     if (user) return user;
-    else throw new NotFoundException();
   }
 
   async remove(id: string): Promise<void> {

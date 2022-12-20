@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Auth from "../hoc/Auth";
 
-import SearchIcon from "@mui/icons-material/Search";
 import LibraryAddSharpIcon from "@mui/icons-material/LibraryAddSharp";
 import Modal from "react-modal";
 import ModalComponent from "../modal/ModalComponent";
+import { NoMovies } from "./NoMovies";
+import UserService from "../../services/UserService";
+import MovieReviewList from "../movie-review/MovieReviewList";
 
 type Props = {};
 
+const userService = new UserService();
+
 const Home = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [movieReviews, setMovieReviews] = useState([]);
 
   // open modal
   const openModal = () => {
@@ -23,6 +28,16 @@ const Home = (props: Props) => {
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    const getMovies = async () => {
+      const userMovies = await userService.getProfile();
+      if (userMovies.data.movieReviews.length > 0)
+        setMovieReviews(userMovies.data.movieReviews);
+    };
+
+    getMovies();
+  }, []);
+
   return (
     <div className="containerHome">
       <header>
@@ -30,15 +45,7 @@ const Home = (props: Props) => {
         <LibraryAddSharpIcon onClick={openModal} fontSize="large" />
       </header>
 
-      {!isOpen && (
-        <div className="noMovies">
-          <SearchIcon sx={{ fontSize: 150 }} />
-          <p>
-            It looks like there are no movies in your library! Go to you web
-            application and add some!
-          </p>
-        </div>
-      )}
+      {!isOpen && <MovieReviewList movieReviews={movieReviews} />}
 
       <Modal
         isOpen={isOpen}

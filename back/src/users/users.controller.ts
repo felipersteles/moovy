@@ -17,6 +17,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserMapper } from './user.mapper';
 import { ShortUserDto } from './dto/short-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -37,8 +38,8 @@ export class UsersController {
 
   @UseGuards(AuthGuard('local'))
   @Post('login')
-  async login(@Request() req) {
-    return this.authService.login(req.user);
+  async login(@Body() loginUserDto: LoginUserDto) {
+    return this.authService.login(loginUserDto);
   }
 
   @Get()
@@ -46,16 +47,17 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  async getProfile(@Request() req) {
+    const user = await this.usersService.findOneWithRelation(req.user.userId);
+    return UserMapper.fromEntityToShowDTO(user);
+  }
+
+  // rotas com parametro ficam no fim
   @Get(':username')
   async findOne(@Param('username') username: string): Promise<ShortUserDto> {
     const user = await this.usersService.findOneByUsername(username)
     return UserMapper.fromEntityToShortDTO(user);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  async getProfile(@Request() req) {
-    const user = await this.usersService.findOneWithRelation(req.user.id);
-    return UserMapper.fromEntityToShowDTO(user);
   }
 }
