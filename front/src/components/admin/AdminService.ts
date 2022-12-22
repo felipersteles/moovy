@@ -14,16 +14,20 @@ export class AdminService extends HttpService {
   }
 
   async invite(email: string) {
-    const { data } = await this.post(
-      "http://localhost:3333/admin/users",
-      email
-    );
+    const { data } = await this.post("http://localhost:3333/admin/users", {
+      email,
+    });
+  }
 
-    console.log(data)
+  async sendEmail(email: string) {
+    const res = await this.post("http://localhost:3333/admin/email", { email });
+    this.invite(email).then(() => console.log("usuario foi convidado"));
+    
+    console.log(res);
   }
 
   isAdmin(): Boolean | undefined {
     if (localStorage.getItem("token") !== null)
-      return (localStorage.getItem("superuser") !== null);
+      return localStorage.getItem("superuser") !== null;
   }
 }

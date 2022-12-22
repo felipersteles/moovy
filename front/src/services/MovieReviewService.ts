@@ -16,4 +16,8 @@ export default class MovieReviewService extends HttpService {
 
     return this.postForm("moviereview", newMovieReview);
   }
+
+  playAudio(movieReviewID: string) {
+    return this.get(`http://localhost:3333/moviereview/${movieReviewID}`)
+  }
 }

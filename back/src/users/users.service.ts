@@ -12,6 +12,7 @@ import {
 import { UserMapper } from './mappers/user.mapper';
 import { ShowUserDto } from './dto/show-user.dto';
 import { InvitedEntity } from './entities/invited.entity';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class UsersService {
@@ -20,13 +21,14 @@ export class UsersService {
     private usersRepository: Repository<UserEntity>,
     @InjectRepository(InvitedEntity)
     private invitedRepository: Repository<InvitedEntity>,
+    private mailerService: MailerService,
   ) {}
 
   async create(newUser: UserEntity) {
     newUser.password = md5(newUser.password);
     const sameUsers = await this.findOneByUsername(newUser.username);
     if (!sameUsers) return this.usersRepository.save(newUser);
-    else throw new ForbiddenException()
+    else throw new ForbiddenException();
   }
 
   async invite(newInvited: InvitedEntity) {
@@ -68,5 +70,14 @@ export class UsersService {
 
   async remove(id: string): Promise<void> {
     await this.usersRepository.delete(id);
+  }
+
+  async sendEmail(email: string): Promise<void> {
+    return await this.mailerService.sendMail({
+      to: email,
+      from: 'mestredosmagos@cavernadodragao.com',
+      subject: 'Enviando Email com NestJS',
+      html: '<h1>Its Magic. I Aint Gotta Explain Shit...</h1>',
+    });
   }
 }

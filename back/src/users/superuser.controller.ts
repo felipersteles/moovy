@@ -5,6 +5,7 @@ import { LoginUserDto } from 'src/users/dto/login-user.dto';
 import { CreateInvitedDto } from './dto/create-invited.dto';
 import { UsersService } from './users.service';
 import { InvitedMapper } from './mappers/invited.mapper';
+import { SendEmailDto } from './dto/send-email.dto';
 
 @Controller('admin')
 export class SuperUserController {
@@ -14,15 +15,21 @@ export class SuperUserController {
   ) {}
 
   @UseGuards(AuthGuard('admin'))
-  @Post('/login')
+  @Post('login')
   login(@Body() loginUserDto: LoginUserDto) {
     console.log(loginUserDto);
     return this.authService.loginAdmin(loginUserDto);
   }
 
-  @Post('/users')
+  @Post('users')
   createInvited(@Body() createInvitedDto: CreateInvitedDto) {
     const newUser = InvitedMapper.fromDTOtoEntity(createInvitedDto);
     return this.userService.invite(newUser);
+  }
+
+  @Post('email')
+  enviarEmail(@Body() sendEmailDto: SendEmailDto) {
+    console.log(sendEmailDto)
+    return this.userService.sendEmail(sendEmailDto.email);
   }
 }
