@@ -9,20 +9,34 @@ import {
   ForbiddenException,
   NotFoundException,
 } from '@nestjs/common/exceptions';
-import { UserMapper } from './user.mapper';
+import { UserMapper } from './mappers/user.mapper';
 import { ShowUserDto } from './dto/show-user.dto';
+import { InvitedEntity } from './entities/invited.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
     private usersRepository: Repository<UserEntity>,
+    @InjectRepository(InvitedEntity)
+    private invitedRepository: Repository<InvitedEntity>,
   ) {}
 
   async create(newUser: UserEntity) {
     newUser.password = md5(newUser.password);
     const sameUsers = await this.findOneByUsername(newUser.username);
-      if(!sameUsers) return this.usersRepository.save(newUser);
+    if (!sameUsers) return this.usersRepository.save(newUser);
+    else throw new ForbiddenException()
+  }
+
+  async invite(newInvited: InvitedEntity) {
+    const sameUsers = await this.invitedRepository.findOne({
+      where: {
+        email: newInvited.email,
+      },
+    });
+
+    if (!sameUsers) return this.invitedRepository.save(newInvited);
   }
 
   findAll(): Promise<UserEntity[]> {

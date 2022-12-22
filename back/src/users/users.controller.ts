@@ -15,7 +15,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserMapper } from './user.mapper';
+import { UserMapper } from './mappers/user.mapper';
 import { ShortUserDto } from './dto/short-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 

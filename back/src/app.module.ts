@@ -9,6 +9,7 @@ import { UserEntity } from './users/entities/user.entity';
 import { MovieEntity } from './movies/entities/movie.entity';
 import { MovieReviewEntity } from './movie-review/entities/movie-review.entity';
 import { InvitedEntity } from './users/entities/invited.entity';
+import { MoviesModule } from './movies/movies.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { InvitedEntity } from './users/entities/invited.entity';
     }),
     AuthModule,
     MovieReviewModule,
+    MoviesModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -7,7 +7,7 @@ export class CreateMovieReviewDto {
     user: UserEntity;
     movie: MovieEntity;
     rating: number;
-    audioReview: Express.Multer.File
+    audio: string;
 }
 
 

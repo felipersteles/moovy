@@ -8,8 +8,18 @@ export class AdminService extends HttpService {
       credencias
     );
 
+    localStorage.setItem("username", data.username);
     localStorage.setItem("superuser", data.superuser);
     localStorage.setItem("token", data.access_token);
+  }
+
+  async invite(email: string) {
+    const { data } = await this.post(
+      "http://localhost:3333/admin/users",
+      email
+    );
+
+    console.log(data)
   }
 
   isAdmin(): Boolean | undefined {

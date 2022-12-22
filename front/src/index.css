@@ -3,10 +3,6 @@ body, html{
     height: 100%;
 }
 
-#root{
-    height: 100%;
-}
-
 
 .containerLogin{
     height: 100%;
@@ -112,11 +108,7 @@ span.cadastro{
     padding: 10px;
 }
 
-.movieReviewsContainer{
-    height: 80%;
-}
 .movieReviewCard{
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;

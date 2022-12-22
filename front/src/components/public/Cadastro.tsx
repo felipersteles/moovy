@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserService from "../../services/UserService";
 import { CadastroReq } from "../../types/CadastroReq.type";
-import InputPublico from "../shared/inputPublico";
+import { InputWithEmailIcon } from "../Inputs/InputWithEmailIcon";
+import { InputWithPasswordIcon } from "../Inputs/InputWithPasswordIcon";
+import { InputWithUserIcon } from "../Inputs/InputWithUserIcon";
 
 type Props = {
-  afterAutentication: ()=>void
+  afterAutentication: () => void;
 };
 
 const userService = new UserService();
@@ -22,11 +24,11 @@ const Cadastro = (props: Props) => {
   const [estaSubmetendo, setEstaSubmetendo] = useState(false);
   const navigate = useNavigate();
 
-  const inputTextHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     // console.log(e.currentTarget.value)
     const { name, value } = e.currentTarget;
 
-    if (name === "confirmarsenha") setConfirmarsenha(value);
+    if (name === "passwordConfirm") setConfirmarsenha(value);
     else setUser({ ...user, [name]: value });
   };
 
@@ -34,19 +36,28 @@ const Cadastro = (props: Props) => {
     e.preventDefault();
     if (estaSubmetendo) return;
 
-    if (user.password === confirmarsenha) {
-      await userService.cadastro(user);
-      await userService.login({
-        username: user.username,
-        password: user.password,
-      });
-      setEstaSubmetendo(true);
-      alert("Usuário criado!");
+    console.log(user);
 
-      props.afterAutentication()
-      navigate("/home");
+    if (user.password === confirmarsenha) {
+      userService.cadastro(user).then(() => {
+        setEstaSubmetendo(true);
+        alert("Usuário criado!");
+
+        userService
+          .login({
+            username: user.username,
+            password: user.password,
+          })
+          .then(() => {
+            props.afterAutentication();
+            navigate("/home");
+            setEstaSubmetendo(false);
+          });
+      }).catch(() => {
+        alert("Usuário já existente");
+      });
     } else alert("As senhas não são iguais");
-    setEstaSubmetendo(false);
+
   };
 
   return (
@@ -56,30 +67,27 @@ const Cadastro = (props: Props) => {
       </div>
       <div className="containerInput">
         <form onSubmit={aoSubmeter}>
-          <InputPublico
-            user={user}
-            nome={"username"}
-            placeholder={"Username"}
-            setUser={setUser}
+          <InputWithUserIcon
+            onChangeHandler={onChangeHandler}
+            placeholder="username"
+            name="username"
           />
-          <InputPublico
-            user={user}
-            nome={"email"}
-            placeholder={"Email"}
-            setUser={setUser}
+          <InputWithEmailIcon
+            onChangeHandler={onChangeHandler}
+            placeholder="email"
+            name="email"
           />
-          <InputPublico
-            user={user}
-            nome={"password"}
-            placeholder={"Senha"}
-            setUser={setUser}
-          />
-          <input
+          <InputWithPasswordIcon
+            onChangeHandler={onChangeHandler}
+            placeholder="password"
+            name="password"
             type="password"
-            id="confirmarsenha"
-            name="confirmarsenha"
-            onChange={inputTextHandler}
-            placeholder="Confirmar senha"
+          />
+          <InputWithPasswordIcon
+            onChangeHandler={onChangeHandler}
+            placeholder="confirm password"
+            name="passwordConfirm"
+            type="password"
           />
           <button type="submit">Enviar</button>
         </form>

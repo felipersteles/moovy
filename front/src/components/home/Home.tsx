@@ -4,7 +4,6 @@ import Auth from "../hoc/Auth";
 import LibraryAddSharpIcon from "@mui/icons-material/LibraryAddSharp";
 import Modal from "react-modal";
 import ModalComponent from "../modal/ModalComponent";
-import { NoMovies } from "./NoMovies";
 import UserService from "../../services/UserService";
 import MovieReviewList from "../movie-review/MovieReviewList";
 
@@ -30,9 +29,9 @@ const Home = (props: Props) => {
 
   useEffect(() => {
     const getMovies = async () => {
-      const userMovies = await userService.getProfile();
-      if (userMovies.data.movieReviews.length > 0)
-        setMovieReviews(userMovies.data.movieReviews);
+      userService.getProfile().then((res) => {
+        setMovieReviews(res.data.movieReviews);
+      });
     };
 
     getMovies();

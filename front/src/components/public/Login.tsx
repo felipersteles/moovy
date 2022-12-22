@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import UserService from "../../services/UserService";
 import { LoginReq } from "../../types/LoginReq.type";
-import InputPublico from "../shared/inputPublico";
+import { InputWithPasswordIcon } from "../Inputs/InputWithPasswordIcon";
+import { InputWithUserIcon } from "../Inputs/InputWithUserIcon";
 
 type Props = {
   afterAutentication: any;
@@ -15,31 +16,30 @@ const userGenerico: LoginReq = {
 
 const userService = new UserService();
 
-const Login = (props: Props) => {
+const Login = ({ afterAutentication }: Props) => {
   const [user, setUser] = useState(userGenerico);
   const [estaSubmetendo, setEstaSubmetendo] = useState(false);
 
-  const aoSubmeter = async (e: React.FormEvent) => {
-    debugger;
-    e.preventDefault();
-    //console.log(user);
-    debugger;
-    if (!estaSubmetendo) {
-      setEstaSubmetendo(true);
-      try {
-        await userService.login(user);
-        debugger;
-        if (props.afterAutentication) {
-          debugger;
-          props.afterAutentication();
-        }
-      } catch (error) {
-        alert(error);
-      }
-    }
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // console.log(e.currentTarget.value)
+    const { name, value } = e.currentTarget;
 
-    debugger;
-    setEstaSubmetendo(false);
+    setUser({ ...user, [name]: value });
+  };
+
+  const aoSubmeter = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    userService
+      .login(user)
+      .then(() => {
+        if (afterAutentication) {
+          afterAutentication();
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
 
   return (
@@ -49,17 +49,16 @@ const Login = (props: Props) => {
       </div>
       <div className="containerInput">
         <form onSubmit={aoSubmeter}>
-          <InputPublico
-            user={user}
-            nome={"username"}
-            placeholder={"Email"}
-            setUser={setUser}
+          <InputWithUserIcon
+            placeholder="username"
+            name="username"
+            onChangeHandler={onChangeHandler}
           />
-          <InputPublico
-            user={user}
-            nome={"password"}
-            placeholder={"Senha"}
-            setUser={setUser}
+          <InputWithPasswordIcon
+            placeholder="password"
+            type="password"
+            name="password"
+            onChangeHandler={onChangeHandler}
           />
           <button type="submit">Enviar</button>
         </form>

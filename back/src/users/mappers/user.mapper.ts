@@ -1,9 +1,9 @@
 import { BadRequestException } from '@nestjs/common';
 import { MovieReviewMapper } from 'src/movie-review/movie-review.mapper';
-import { CreateUserDto } from './dto/create-user.dto';
-import { ShortUserDto } from './dto/short-user.dto';
-import { ShowUserDto } from './dto/show-user.dto';
-import { UserEntity } from './entities/user.entity';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { ShortUserDto } from '../dto/short-user.dto';
+import { ShowUserDto } from '../dto/show-user.dto';
+import { UserEntity } from '../entities/user.entity';
 
 export class UserMapper {
   static fromDTOtoEntity(entityDTO: CreateUserDto): UserEntity {

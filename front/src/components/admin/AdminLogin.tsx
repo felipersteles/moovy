@@ -2,7 +2,8 @@ import { Box } from "@mui/material";
 import React, { useState } from "react";
 import { LoginReq } from "../../types/LoginReq.type";
 import { AdminService } from "./AdminService";
-import { InputWithIcon } from "./subcomponents/InputWithIcon";
+import { InputWithPasswordIcon } from "../Inputs/InputWithPasswordIcon";
+import { InputWithUserIcon } from "../Inputs/InputWithUserIcon";
 import {Button} from '@mui/material'
 
 type Props = {};
@@ -34,12 +35,12 @@ const AdminLogin = (props: Props) => {
   return (
     <Box sx={{ "& > :not(style)": { m: 1 } }}>
       <form onSubmit={onSubmitHandler}>
-        <InputWithIcon
+        <InputWithUserIcon
           placeholder="username"
           onChangeHandler={onChangeHandler}
           name="username"
         />
-        <InputWithIcon type="password" placeholder="senha" name="password" onChangeHandler={onChangeHandler} />
+        <InputWithPasswordIcon type="password" placeholder="senha" name="password" onChangeHandler={onChangeHandler} />
 
         <Button type="submit" variant="contained">Submit</Button>
       </form>

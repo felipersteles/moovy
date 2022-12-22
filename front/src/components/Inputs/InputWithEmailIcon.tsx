@@ -1,25 +1,31 @@
 import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
-import AccountCircle from "@mui/icons-material/AccountCircle";
+import EmailIcon from '@mui/icons-material/Email';
 
 type Props = {
   id?: string;
   placeholder?: string;
-    name?: string;
-    type?: string
+  name?: string;
+  type?: string;
   onChangeHandler?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const InputWithIcon = ({ id, name, placeholder, type, onChangeHandler }: Props) => {
+export const InputWithEmailIcon = ({
+  id,
+  name,
+  placeholder,
+  type,
+  onChangeHandler,
+}: Props) => {
   return (
     <Input
       name={name}
-          id={id}
-          type={type}
+      id={id}
+      type={type}
       onChange={onChangeHandler}
       startAdornment={
         <InputAdornment position="start">
-          <AccountCircle />
+          <EmailIcon />
         </InputAdornment>
       }
       placeholder={placeholder}

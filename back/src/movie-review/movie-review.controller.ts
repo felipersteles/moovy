@@ -13,8 +13,7 @@ export class MovieReviewsController {
   @Post()
   @UseInterceptors(FileInterceptor('audioReview'))
   create(@Body() createMovieReviewDto: CreateMovieReviewDto, @UploadedFile() file: Express.Multer.File) {
-    console.log(file);
-
+    createMovieReviewDto.audio = file.filename
     const newMovieReview = MovieReviewMapper.fromDTOtoEntity(createMovieReviewDto)
 
     if(newMovieReview) return this.movieReviewService.create(newMovieReview);

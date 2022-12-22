@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
 import { NoMovies } from "../home/NoMovies";
 import MovieCard from "../movie/MovieCard";
 import PlayAudio from "./PlayAudio";
 
-import StarIcon from '@mui/icons-material/Star';
+import StarIcon from "@mui/icons-material/Star";
 import yellow from "@mui/material/colors/yellow";
 
 type Props = {
@@ -11,9 +10,6 @@ type Props = {
 };
 
 const MovieReviewList = (props: Props) => {
-  useEffect(() => {
-    console.log(props.movieReviews);
-  }, []);
 
   if (props.movieReviews.length > 0)
     return (
@@ -25,8 +21,11 @@ const MovieReviewList = (props: Props) => {
               title={movieReview.movie.title}
             />
             <div className="function">
-              <div className="rating"><StarIcon sx={{ color: yellow[500] }}/>{movieReview.rating}</div>
-              <PlayAudio />
+              <div className="rating">
+                <StarIcon sx={{ color: yellow[500] }} />
+                {movieReview.rating}
+              </div>
+              <PlayAudio audio={movieReview.audioReview} />
             </div>
           </div>
         ))}

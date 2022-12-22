@@ -1,7 +1,10 @@
 import { Container, Typography } from "@mui/material";
-import Input from "@mui/material/Input";
+import { InputWithEmailIcon } from "../Inputs/InputWithEmailIcon";
+import { AdminService } from "./AdminService";
 
 type Props = {};
+
+const adminService = new AdminService();
 
 const AdminHome = (props: Props) => {
   return (
@@ -10,7 +13,7 @@ const AdminHome = (props: Props) => {
         <Typography variant="h3" gutterBottom>
           Mande um email para alguem
         </Typography>
-        <Input placeholder="Email" />
+        <InputWithEmailIcon />
       </Container>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import AdminPage from "./components/admin/AdminPage";
 import Home from "./components/home/Home";
 import Cadastro from "./components/public/Cadastro";
@@ -9,6 +9,8 @@ import UserService from "./services/UserService";
 const userService = new UserService();
 
 function App() {
+  const navigate = useNavigate();
+  
   const [isAuthenticated, setIsAuthenticated] = useState<Boolean>(false);
 
   useEffect(() => {
@@ -36,6 +38,7 @@ function App() {
               <Login
                 afterAutentication={() => {
                   setIsAuthenticated(true);
+                  navigate('/home')
                 }}
               />
             }
