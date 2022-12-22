@@ -20,16 +20,17 @@ const Login = (props: Props) => {
   const [estaSubmetendo, setEstaSubmetendo] = useState(false);
 
   const aoSubmeter = async (e: React.FormEvent) => {
+    debugger;
     e.preventDefault();
     //console.log(user);
-
+    debugger;
     if (!estaSubmetendo) {
       setEstaSubmetendo(true);
       try {
         await userService.login(user);
-
-
+        debugger;
         if (props.afterAutentication) {
+          debugger;
           props.afterAutentication();
         }
       } catch (error) {
@@ -37,6 +38,7 @@ const Login = (props: Props) => {
       }
     }
 
+    debugger;
     setEstaSubmetendo(false);
   };
 

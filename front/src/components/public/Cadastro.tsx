@@ -4,7 +4,9 @@ import UserService from "../../services/UserService";
 import { CadastroReq } from "../../types/CadastroReq.type";
 import InputPublico from "../shared/inputPublico";
 
-type Props = {};
+type Props = {
+  afterAutentication: ()=>void
+};
 
 const userService = new UserService();
 
@@ -41,7 +43,8 @@ const Cadastro = (props: Props) => {
       setEstaSubmetendo(true);
       alert("Usuário criado!");
 
-      navigate("/");
+      props.afterAutentication()
+      navigate("/home");
     } else alert("As senhas não são iguais");
     setEstaSubmetendo(false);
   };

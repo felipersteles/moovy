@@ -21,14 +21,8 @@ export class UsersService {
 
   async create(newUser: UserEntity) {
     newUser.password = md5(newUser.password);
-    try {
-      await this.findOneByUsername(newUser.username);
-    } catch (error) {
-      if(error.status === 404) return this.usersRepository.save(newUser);
-    }
-    
-    // so podem se cadastrar usuarios novos
-    throw new ForbiddenException();
+    const sameUsers = await this.findOneByUsername(newUser.username);
+      if(!sameUsers) return this.usersRepository.save(newUser);
   }
 
   findAll(): Promise<UserEntity[]> {

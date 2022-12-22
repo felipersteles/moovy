@@ -2,6 +2,7 @@ export class CreateUserDto {
   username: string;
   email: string;
   password: string;
+  superuser?: boolean;
 }
 
 // DTO significa Data Transfer Object

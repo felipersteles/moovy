@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
+import AdminPage from "./components/admin/AdminPage";
 import Home from "./components/home/Home";
 import Cadastro from "./components/public/Cadastro";
 import Login from "./components/public/Login";
@@ -8,23 +9,51 @@ import UserService from "./services/UserService";
 const userService = new UserService();
 
 function App() {
-  const [isAutenticated, setIsAutenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<Boolean>(false);
 
   useEffect(() => {
-    setIsAutenticated(userService.isAuthenticated());
+    setIsAuthenticated(userService.isAuthenticated());
   }, []);
 
-  if (isAutenticated) return <Home />;
-  else
-    return (
-      <Routes>
-        <Route
-          path="/"
-          element={<Login afterAutentication={() => setIsAutenticated(true)} />}
-        />
-        <Route path="/cadastro" element={<Cadastro />} />
-      </Routes>
-    );
+  return (
+    <Routes>
+        <Route path="/admin" element={<AdminPage />} />
+
+      <Route
+        path="/"
+        element={
+          <Navigate to={isAuthenticated ? "home" : "login"} replace />
+        }
+      />
+
+      {isAuthenticated && <Route path="/home" element={<Home />} />}
+
+      {!isAuthenticated && (
+        <>
+          <Route
+            path="/login"
+            element={
+              <Login
+                afterAutentication={() => {
+                  setIsAuthenticated(true);
+                }}
+              />
+            }
+          />
+          <Route
+            path="/cadastro"
+            element={
+              <Cadastro
+                afterAutentication={() => {
+                  setIsAuthenticated(true);
+                }}
+              />
+            }
+          />
+        </>
+      )}
+    </Routes>
+  );
 }
 
 export default App;

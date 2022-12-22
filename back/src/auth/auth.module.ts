@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { MoviesModule } from 'src/movies/movies.module';
 import { UsersModule } from 'src/users/users.module';
+import { AdminStrategy } from './admin.strategy';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { LocalStrategy } from './local.strategy';
@@ -11,7 +11,6 @@ import { LocalStrategy } from './local.strategy';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MoviesModule,
     UsersModule,
     PassportModule,
     JwtModule.register({
@@ -19,7 +18,7 @@ import { LocalStrategy } from './local.strategy';
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy, AdminStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}

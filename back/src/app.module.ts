@@ -8,6 +8,7 @@ import { MovieReviewModule } from './movie-review/movie-review.module';
 import { UserEntity } from './users/entities/user.entity';
 import { MovieEntity } from './movies/entities/movie.entity';
 import { MovieReviewEntity } from './movie-review/entities/movie-review.entity';
+import { InvitedEntity } from './users/entities/invited.entity';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { MovieReviewEntity } from './movie-review/entities/movie-review.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       synchronize: true, // não recomendado em ambientes de produção
-      entities: [UserEntity, MovieEntity, MovieReviewEntity],
+      entities: [UserEntity, MovieEntity, MovieReviewEntity, InvitedEntity],
       autoLoadEntities: true,
     }),
     AuthModule,
